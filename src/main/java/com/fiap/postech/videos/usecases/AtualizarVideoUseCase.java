@@ -12,13 +12,13 @@ public class AtualizarVideoUseCase {
     @Autowired
     private VideoRepository videoRepository;
 
-    public Mono<Video> executar(Long id, Video videoAtualizado) {
+    public Mono<Video> executar(String id, Video videoAtualizado) {
         return videoRepository.findById(id).flatMap(existingVideo -> {
             // Atualiza os campos do vídeo existente com base nos dados do vídeoAtualizado
             existingVideo.setTitulo(videoAtualizado.getTitulo());
             existingVideo.setDescricao(videoAtualizado.getDescricao());
             existingVideo.setDataDeUpload(videoAtualizado.getDataDeUpload());
-
+            existingVideo.setCategoria(videoAtualizado.getCategoria());
             return videoRepository.save(existingVideo);
         });
     }

@@ -1,9 +1,10 @@
 package com.fiap.postech.videos.entities;
 
-public enum Categorias {
+public enum Categoria {
     ALIMENTACAO,
     ESPORTES,
     TRIVIA,
     MUSICA,
-    FILME
+    FILME,
+    EDUCACAO
 }
