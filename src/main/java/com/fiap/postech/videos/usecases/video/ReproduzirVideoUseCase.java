@@ -1,4 +1,4 @@
-package com.fiap.postech.videos.usecases;
+package com.fiap.postech.videos.usecases.video;
 
 import com.fiap.postech.videos.entities.Video;
 import com.fiap.postech.videos.repositories.VideoRepository;

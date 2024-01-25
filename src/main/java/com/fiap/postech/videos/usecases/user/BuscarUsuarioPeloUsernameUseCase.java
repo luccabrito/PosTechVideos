@@ -1,4 +1,4 @@
-package com.fiap.postech.videos.usecases;
+package com.fiap.postech.videos.usecases.user;
 
 import com.fiap.postech.videos.entities.User;
 import com.fiap.postech.videos.repositories.UserRepository;
