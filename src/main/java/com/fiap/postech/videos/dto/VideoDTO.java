@@ -15,18 +15,20 @@ public class VideoDTO {
     private String descricao;
     private String url;
     private LocalDate dataDeUpload;
-    private User uploadedBy;
+    private String uploadedBy;
     private Categoria categoria;
+    private Integer totalVisualizacoes;
 
     public Video dtoToEntity(VideoDTO videoDTO) {
         Video novoVideo = new Video();
+        novoVideo.setDataDeUpload(videoDTO.getDataDeUpload());
         novoVideo.setTitulo(videoDTO.getTitulo());
         novoVideo.setCategoria(videoDTO.getCategoria());
         novoVideo.setUrl(videoDTO.getUrl());
         novoVideo.setDescricao(videoDTO.getDescricao());
-        novoVideo.setDataDeUpload(videoDTO.getDataDeUpload());
-        novoVideo.setUploadedBy(videoDTO.getUploadedBy());
-        novoVideo.setTotalVisualizacoes(0);
+        novoVideo.setTotalVisualizacoes(videoDTO.getTotalVisualizacoes());
         return novoVideo;
     }
+
+
 }

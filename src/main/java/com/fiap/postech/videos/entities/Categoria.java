@@ -6,5 +6,6 @@ public enum Categoria {
     TRIVIA,
     MUSICA,
     FILME,
-    EDUCACAO
+    EDUCACAO,
+    HUMOR
 }
