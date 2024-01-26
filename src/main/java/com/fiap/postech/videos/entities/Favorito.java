@@ -7,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Document(collection = "users")
-public class User {
+@Document(collection = "favoritos")
+public class Favorito {
 
     @Id
+    private String id;
     private String username;
-    private String senha;
+    private String videoId;
 
 }
-

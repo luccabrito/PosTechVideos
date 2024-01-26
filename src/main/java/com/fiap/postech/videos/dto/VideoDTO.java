@@ -1,7 +1,6 @@
 package com.fiap.postech.videos.dto;
 
 import com.fiap.postech.videos.entities.Categoria;
-import com.fiap.postech.videos.entities.User;
 import com.fiap.postech.videos.entities.Video;
 import lombok.Getter;
 import lombok.Setter;

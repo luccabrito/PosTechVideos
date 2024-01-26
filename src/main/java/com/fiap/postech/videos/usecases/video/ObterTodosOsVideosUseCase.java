@@ -13,6 +13,10 @@ public class ObterTodosOsVideosUseCase {
     @Autowired
     private VideoRepository videoRepository;
 
+    public Flux<Video> getVideos() {
+        return videoRepository.findAll();
+    };
+
     public Flux<Video> getAllVideos(Pageable pageable) {
         return videoRepository.findAll();
     }

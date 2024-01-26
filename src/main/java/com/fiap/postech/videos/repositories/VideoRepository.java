@@ -18,4 +18,5 @@ public interface VideoRepository extends ReactiveMongoRepository<Video, String> 
     Flux<Video> findByOrderByDataDeUploadAsc();
     Flux<Video> findByOrderByDataDeUploadDesc();
     Mono<Video> findById(String id);
+    Mono<Long> count();
 }
