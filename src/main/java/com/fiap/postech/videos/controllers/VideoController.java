@@ -3,9 +3,8 @@ package com.fiap.postech.videos.controllers;
 import com.fiap.postech.videos.dto.VideoDTO;
 import com.fiap.postech.videos.entities.Categoria;
 import com.fiap.postech.videos.entities.Video;
-import com.fiap.postech.videos.repositories.VideoRepository;
-import com.fiap.postech.videos.usecases.*;
-import lombok.AllArgsConstructor;
+import com.fiap.postech.videos.usecases.user.BuscarUsuarioPeloUsernameUseCase;
+import com.fiap.postech.videos.usecases.video.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,7 +20,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/videos")
-@AllArgsConstructor
 public class VideoController {
 
     @Autowired
@@ -38,6 +36,10 @@ public class VideoController {
     private DeletarVideoUseCase deletarVideoUseCase;
     @Autowired
     private ObterTodosOsVideosUseCase obterTodosOsVideosUseCase;
+    @Autowired
+    private BuscarUsuarioPeloUsernameUseCase buscarUsuarioPeloUsernameUseCase;
+    @Autowired
+    private ReproduzirVideoUseCase reproduzirVideoUseCase;
 
     @GetMapping
     public ResponseEntity<Flux<Video>> obterTodosOsVideos(@RequestParam(required = false) String order,
@@ -58,8 +60,9 @@ public class VideoController {
     }
 
     @PutMapping("/{id}")
-    public Mono<ResponseEntity<Video>> atualizarVideo(@PathVariable String id, @RequestBody Video videoAtualizado) {
-        return atualizarVideoUseCase.executar(id, videoAtualizado)
+    public Mono<ResponseEntity<Video>> atualizarVideo(@PathVariable String id, @RequestBody VideoDTO videoAtualizado) {
+        Video video = videoAtualizado.dtoToEntity(videoAtualizado);
+        return atualizarVideoUseCase.executar(id, video)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -86,9 +89,14 @@ public class VideoController {
 
     @PostMapping
     public Mono<ResponseEntity<Video>> criarVideo(@RequestBody VideoDTO videoDTO) {
-        Video novoVideo = videoDTO.dtoToEntity(videoDTO);
-        return criarVideoUseCase.executar(novoVideo)
-                .map(videoSalvo -> ResponseEntity.created(URI.create("api/videos/" + videoSalvo.getId())).body(videoSalvo));
+        return buscarUsuarioPeloUsernameUseCase.executar(videoDTO.getUploadedBy())
+                .flatMap(user -> {
+                    Video novoVideo = videoDTO.dtoToEntity(videoDTO);
+                    novoVideo.setUploadedBy(user);
+                    return criarVideoUseCase.executar(novoVideo)
+                            .map(videoSalvo -> ResponseEntity.created(URI.create("/videos/" + videoSalvo.getId())).body(videoSalvo));
+                })
+                .switchIfEmpty(Mono.just(ResponseEntity.badRequest().build())); // Usuário não encontrado
     }
 
     @DeleteMapping("/{id}")
@@ -98,5 +106,10 @@ public class VideoController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/{id}/reproduzir")
+    public ResponseEntity<Mono<Video>> reproduzirVideo(@PathVariable String id) {
+        var video = reproduzirVideoUseCase.executar(id);
+        return ResponseEntity.ok().body(video);
+    }
 
 }

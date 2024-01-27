@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
 
     @Id
-    private String login;
+    private String username;
     private String senha;
-    private Favorito videosFavoritos;
 
 }
+

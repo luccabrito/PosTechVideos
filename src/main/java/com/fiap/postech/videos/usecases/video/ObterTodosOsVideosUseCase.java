@@ -1,4 +1,4 @@
-package com.fiap.postech.videos.usecases;
+package com.fiap.postech.videos.usecases.video;
 
 import com.fiap.postech.videos.entities.Video;
 import com.fiap.postech.videos.repositories.VideoRepository;
@@ -12,6 +12,10 @@ public class ObterTodosOsVideosUseCase {
 
     @Autowired
     private VideoRepository videoRepository;
+
+    public Flux<Video> getVideos() {
+        return videoRepository.findAll();
+    };
 
     public Flux<Video> getAllVideos(Pageable pageable) {
         return videoRepository.findAll();
