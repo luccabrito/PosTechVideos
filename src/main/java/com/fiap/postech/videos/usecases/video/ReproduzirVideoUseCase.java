@@ -13,9 +13,6 @@ public class ReproduzirVideoUseCase {
     private VideoRepository videoRepository;
 
     @Autowired
-    private BuscarVideoPorIdUseCase buscarVideoPorIdUseCase;
-
-    @Autowired
     private AtualizarVideoUseCase atualizarVideoUseCase;
 
     public Mono<Video> executar(String videoId) {
