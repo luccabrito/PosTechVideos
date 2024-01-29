@@ -15,5 +15,12 @@ public class User {
     @NotEmpty(message = "Uma senha é requerida.")
     private String senha;
 
+    public static User gerarUser(int id){
+        return User.builder()
+                .username("username_".concat(String.valueOf(id)))
+                .senha("sernha_".concat(String.valueOf(id)).concat("@123456"))
+                .build();
+    }
+
 }
 

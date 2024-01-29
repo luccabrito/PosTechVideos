@@ -32,8 +32,7 @@ public class AllUseCasePackageUserTests {
     @Test
     void devePermitirCriarUser(){
         // Arrange
-       var user = gerarUser();
-       user.setUsername("User Name 01");
+       var user = User.gerarUser(1);
 
         //when(userRepository.save(user)).thenReturn(user);
         when(userRepository.save(any(User.class))).thenReturn(Mono.just(user));
@@ -51,8 +50,7 @@ public class AllUseCasePackageUserTests {
     @Test
     void deveBuscarUsuarioPleloUsername(){
         // Arrange
-        var user = gerarUser();
-        user.setUsername("Username 01");
+        var user = User.gerarUser(1);
 
         when(userRepository.findByUsername(any(String.class)))
                 .thenReturn(Mono.just(user));
@@ -71,12 +69,6 @@ public class AllUseCasePackageUserTests {
             })
             .verifyComplete(); //Verifica se o Mono finalizou com todos os valores esperados.
         verify(userRepository, times(1)).findByUsername(any(String.class));
-    }
-
-    private User gerarUser(){
-        return User.builder()
-                .senha("user01@123456")
-                .build();
     }
 
 }
