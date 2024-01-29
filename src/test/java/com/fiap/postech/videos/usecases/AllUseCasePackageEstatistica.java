@@ -1,11 +1,8 @@
 package com.fiap.postech.videos.usecases;
 
 import com.fiap.postech.videos.entities.Estatistica;
-import com.fiap.postech.videos.entities.Favorito;
-import com.fiap.postech.videos.entities.User;
 import com.fiap.postech.videos.entities.Video;
 import com.fiap.postech.videos.repositories.FavoritoRepository;
-import com.fiap.postech.videos.repositories.UserRepository;
 import com.fiap.postech.videos.repositories.VideoRepository;
 import com.fiap.postech.videos.usecases.estatistica.ObterEstatisticasUseCase;
 import com.fiap.postech.videos.usecases.video.ObterTodosOsVideosUseCase;
@@ -20,8 +17,6 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Fail.fail;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 public class AllUseCasePackageEstatistica {
