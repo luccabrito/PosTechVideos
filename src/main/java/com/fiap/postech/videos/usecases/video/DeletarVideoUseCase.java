@@ -13,6 +13,7 @@ public class DeletarVideoUseCase {
 
     public Mono<Void> executar(String id) {
         return videoRepository.findById(id)
-                .flatMap(existingVideo -> videoRepository.delete(existingVideo));
+                .flatMap(existingVideo -> videoRepository.delete(existingVideo))
+                .switchIfEmpty(Mono.empty());
     }
 }

@@ -56,7 +56,11 @@ public class VideoController {
             videos = obterTodosOsVideosUseCase.getAllVideos(pageable);
         }
 
-        return ResponseEntity.ok().body(videos);
+        if (videos != null) {
+            return ResponseEntity.ok().body(videos);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -76,15 +80,17 @@ public class VideoController {
     }
 
     @GetMapping("/buscarPorTitulo")
-    public ResponseEntity<Flux<Video>> buscarPorTitulo(@RequestParam String titulo) {
+    public Mono<ResponseEntity<Flux<Video>>> buscarPorTitulo(@RequestParam String titulo) {
         Flux<Video> videos = buscarVideoPorTituloUseCase.executar(titulo);
-        return ResponseEntity.ok().body(videos);
+        return videos.hasElements()
+                .map(hasElements -> hasElements ? ResponseEntity.ok().body(videos) : ResponseEntity.notFound().build());
     }
 
     @GetMapping("/buscarPorCategoria")
-    public ResponseEntity<Flux<Video>> buscarPorCategoria(@RequestParam Categoria categoria) {
+    public Mono<ResponseEntity<Flux<Video>>> buscarPorCategoria(@RequestParam Categoria categoria) {
         Flux<Video> videos = buscarVideosPorCategoriaUseCase.executar(categoria);
-        return ResponseEntity.ok().body(videos);
+        return videos.hasElements()
+                .map(hasElements -> hasElements ? ResponseEntity.ok().body(videos) : ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -107,9 +113,10 @@ public class VideoController {
     }
 
     @GetMapping("/{id}/reproduzir")
-    public ResponseEntity<Mono<Video>> reproduzirVideo(@PathVariable String id) {
+    public Mono<ResponseEntity<Video>> reproduzirVideo(@PathVariable String id) {
         var video = reproduzirVideoUseCase.executar(id);
-        return ResponseEntity.ok().body(video);
+        return video.map(ResponseEntity::ok)
+                        .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
 }

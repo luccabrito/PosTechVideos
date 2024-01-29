@@ -12,9 +12,6 @@ public class ReproduzirVideoUseCase {
     @Autowired
     private VideoRepository videoRepository;
 
-    @Autowired
-    private AtualizarVideoUseCase atualizarVideoUseCase;
-
     public Mono<Video> executar(String videoId) {
         return videoRepository.findById(videoId)
                 .flatMap(video -> {

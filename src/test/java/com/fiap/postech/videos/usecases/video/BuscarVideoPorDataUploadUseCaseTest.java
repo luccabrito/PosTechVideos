@@ -1,8 +1,7 @@
-package com.fiap.postech.videos.usecases;
+package com.fiap.postech.videos.usecases.video;
 
 import com.fiap.postech.videos.entities.Video;
 import com.fiap.postech.videos.repositories.VideoRepository;
-import com.fiap.postech.videos.usecases.video.BuscarVideoPorDataUploadUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
