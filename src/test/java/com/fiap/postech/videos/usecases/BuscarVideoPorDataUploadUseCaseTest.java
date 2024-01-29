@@ -32,10 +32,11 @@ public class BuscarVideoPorDataUploadUseCaseTest {
     @Test
     public void deveRetornarUmVideoComDataDeUploadCorreta() {
 
-        Video video1 = new Video();
-        video1.setTitulo("Vídeo 1");
         LocalDate dataDeUpload = LocalDate.of(2023, 9, 12);
-        video1.setDataDeUpload(dataDeUpload);
+        var video1 = Video.builder()
+                        .titulo("Vídeo 1")
+                        .dataDeUpload( dataDeUpload )
+                        .build();
 
         Mockito.when(videoRepository.findByDataDeUpload(dataDeUpload)).thenReturn(Flux.just(video1));
 
