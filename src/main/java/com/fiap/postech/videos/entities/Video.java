@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.Random;
 
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 @Document(collection = "videos")
@@ -26,5 +27,17 @@ public class Video {
     private Categoria categoria;
     @Builder.Default
     private Integer totalVisualizacoes = 0;
+
+    public static Video gerarVideo(int id){
+        Random random = new Random();
+        Integer randomNumber = random.nextInt(1000001);
+        return Video.builder()
+                .titulo("Titulo_".concat(String.valueOf(id)))
+                .descricao("Descrição_".concat(String.valueOf(id)))
+                .url("http://video_".concat(String.valueOf(id)))
+                .uploadedBy(User.gerarUser(1))
+                .totalVisualizacoes(randomNumber)
+                .build();
+    }
 
 }
