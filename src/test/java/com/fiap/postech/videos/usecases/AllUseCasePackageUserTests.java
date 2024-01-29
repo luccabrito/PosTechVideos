@@ -1,4 +1,4 @@
-package com.fiap.postech.videos.usecases.user;
+package com.fiap.postech.videos.usecases;
 
 import com.fiap.postech.videos.entities.User;
 import com.fiap.postech.videos.repositories.UserRepository;
@@ -6,19 +6,13 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-
-import java.util.Optional;
-
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
 
-public class CriarUserUseCaseTest {
+public class AllUseCasePackageUserTests {
 
     @Mock
     private UserRepository userRepository;
