@@ -11,7 +11,6 @@
 
 # Sobre o projeto
 
-
 Este projeto foi elaborado como o 4º Tech Challenge da Pós-Tech da FIAP + Alura de Arquitetura e Desenvolvimento com Java. Foi desenvolvido o backend de uma aplicação web de streaming de vídeos, utilizando os conceitos de programação reativa.
 
 A respeito da arquitetura do projeto, aplicamos a Clean Architecture da melhor forma que nos foi possível. Esta arquitetura propõe uma clara separação de responsabilidades em camadas. Aqui no projeto, utilizamos Controllers, UseCases, Entities e Repositories, visando manter as regras de negócio independentes de detalhes de implementação externos, facilitando desta forma a manutenção do código.
@@ -23,3 +22,65 @@ Entretanto, tendo em vista que não utilizamos um banco de dados relacional para
 A entidade Favorito, neste cenário, possui dois atributos: Username, para indicar o usuário que favoritou aquele vídeo; e o videoId, representando o ID do vídeo favoritado. Desta forma, foi criado uma nova Collection para o Favorito. Isso ajudou a manter o código mais limpo e organizado, tendo em vista que fizemos uma refatoração para ter o FavoritoController e demais fluxos, separando ainda mais as responsabilidades de cada classe.
 
 O guia de uso de aplicação será através da Collection do Postman, que inclui todos os endpoints desenvolvidos, assim como do vídeo gravado que segue em anexo com a entrega deste projeto.
+Vide anexo: src/main/resources/Testes_postman_collection.json
+
+# Funcionalidades Principais
+O sistema possui as seguintes principais APIs e quesrão mais detalhadas na seção de endpoints:
+
+1. Registro de usuários (UserController)
+2. Registro de favoritos do usuário (FavoritoController)
+3. Registro de videos (VideoController)
+4. Relatório de estatisticas (EstatisticaController)
+
+# Estrutura do projeto
+Como a projeto possui 4 APIs principais e outas de suporte. Localizado em
+```
+src/main/java/com/fiap/postech/videos/controllers  
+- ./EstatisticaController.java
+- ./FavoritoController.java
+- ./VideoController.java
+- ./EstatisticaController.java
+```
+
+Se tratando um laboratório com foco na aprendizagem de Qualidade, Arquitetura e Segurança este projeto ainda não contem a camada de view do projeto.
+O trabalho foi feito nas camadas responsáveis de controller, conforme os conceitos da aquitetura hexagonal e clean code, e persistência, conforme a seguir:
+```
+src/main/java/com/fiap/postech/videos
+- ./controllers
+- ./dto
+- ./entities
+- ./repositories
+- ./usecases
+```
+
+# Como montar o ambiente
+O JPA deste projeto foi configurado para criara automáticamente todas as tabelas necessárias. Basta configurar corretamente no
+**application.properties**
+as configurações do banco de dados na máquina local, num schema vazio e inicar o projeto.
+
+## Tecnologias empregadas
+
+### Repositório
+Este projeto utiliza Reactive MongoRepository para poder acessar o banco de dados Mongo de forma assincrona em conjunto
+com a arquitetura spring webflux.
+
+O acesso ao banco de dados é todo encapsulado na camada `com/tc/tech_challange/repositories`, extendendo a classe do
+framwork Reactive Mongo (ReactiveMongoRepository).
+
+### Lombok
+Foi utilizado o framework Lombok, com objetivo de diminuir a verbosidade das classes de mapeamento JPA, DTOs, Beans entre outros.
+
+Durante o desenvolvimento deste projeto foi possível identificar que a sua vantagem é evitar a repetição comuns de códigos, como a criação de gets e sets para todos os atributos, métodos equals e hashCode, toString, Construtores entre outros. Dessa forma, o código fica mais limpo e claro.
+
+### Validadores de campos
+Para a validação de campos foi utilizado o pacote da bliblioteca do jakarta.validation.constraints.*. Com esta solução foi possível fácilmene mapear regras de validação um simples anotation, como: obrigatóridade de campos, valores máximos e mínimos e até regexp, conforme será destacando na seção das APIs.
+
+# Endpoints
+
+# Como empacotar e rodar o projeto
+
+```
+./mvnw clean package
+
+java -jar target/PosTechVideos-semestre4-0.0.1-SNAPSHOT.jar
+```
