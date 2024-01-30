@@ -22,7 +22,7 @@ Entretanto, tendo em vista que não utilizamos um banco de dados relacional para
 A entidade Favorito, neste cenário, possui dois atributos: Username, para indicar o usuário que favoritou aquele vídeo; e o videoId, representando o ID do vídeo favoritado. Desta forma, foi criado uma nova Collection para o Favorito. Isso ajudou a manter o código mais limpo e organizado, tendo em vista que fizemos uma refatoração para ter o FavoritoController e demais fluxos, separando ainda mais as responsabilidades de cada classe.
 
 O guia de uso de aplicação será através da Collection do Postman, que inclui todos os endpoints desenvolvidos, assim como do vídeo gravado que segue em anexo com a entrega deste projeto.
-Vide anexo: src/main/resources/Testes_postman_collection.json
+Vide anexo: *FIAP - Tech challenge_4.postman_collection.json*
 
 # Funcionalidades Principais
 O sistema possui as seguintes principais APIs e quesrão mais detalhadas na seção de endpoints:
@@ -53,12 +53,22 @@ src/main/java/com/fiap/postech/videos
 - ./usecases
 ```
 
+O projeto também conta com uma busta arquitetura de teste. Onde foi aplicada tecnologias de JUnit, Mokito e Assertj:
+src/test/java/com/fiap/postech/videos
+```
+- ./controllers
+- ./usercases
+```
+
 # Como montar o ambiente
 O JPA deste projeto foi configurado para criara automáticamente todas as tabelas necessárias. Basta configurar corretamente no
 **application.properties**
 as configurações do banco de dados na máquina local, num schema vazio e inicar o projeto.
 
 ## Tecnologias empregadas
+
+### Spring WebFlux
+O Spring WebFlux é um framework de programação reativa para aplicações web que oferece suporte a entrada e saída não bloqueante. Ele é totalmente compatível com o Spring Web MVC e pode ser usado com Reactive Streams, Netty, Undertow e contêineres Servlet.
 
 ### Repositório
 Este projeto utiliza Reactive MongoRepository para poder acessar o banco de dados Mongo de forma assincrona em conjunto
@@ -75,7 +85,13 @@ Durante o desenvolvimento deste projeto foi possível identificar que a sua vant
 ### Validadores de campos
 Para a validação de campos foi utilizado o pacote da bliblioteca do jakarta.validation.constraints.*. Com esta solução foi possível fácilmene mapear regras de validação um simples anotation, como: obrigatóridade de campos, valores máximos e mínimos e até regexp, conforme será destacando na seção das APIs.
 
-# Endpoints
+### JUnit
+O JUnit é um framework de testes unitários em Java que permite verificar e validar o funcionamento de classes e métodos
+de forma automatizada e repetível. O JUnit é baseado na arquitetura xUnit, que é um padrão para frameworks de testes em diversas linguagens de programação. O JUnit facilita a escrita de testes, a execução dos testes e a apresentação dos resultados.
+
+### Mokito
+O Mokito é um framework de testes unitários em Java que permite criar e controlar objetos simulados (mocks) para isolar as dependências e o comportamento dos métodos. Ele é usado para desenvolver aplicações testáveis e com código limpo e legível.
+
 
 # Como empacotar e rodar o projeto
 
