@@ -1,4 +1,4 @@
-# #####| PosTechVideos |############################
+# #####| PosTechVideos |#####
 
 * **Grupo:** 60
 * **Turma:** 1ADJT - 2023
@@ -15,7 +15,7 @@ Este projeto foi elaborado como o 4º Tech Challenge da Pós-Tech da FIAP + Alur
 
 A respeito da arquitetura do projeto, aplicamos a Clean Architecture da melhor forma que nos foi possível. Esta arquitetura propõe uma clara separação de responsabilidades em camadas. Aqui no projeto, utilizamos Controllers, UseCases, Entities e Repositories, visando manter as regras de negócio independentes de detalhes de implementação externos, facilitando desta forma a manutenção do código.
 
-Tendo em vista as decisões técnicas, uma das discussões mais interessantes que ocorreram foi a respeito das Entidades que teríamos em nosso projeto. Originalmente, havíamos pensado em apenas duas: Video e User. A entidade User haveria um atributo do tipo List<Video>, para representar os vídeos favoritos daquele usuário.
+Tendo em vista as decisões técnicas, uma das discussões mais interessantes que ocorreram foi a respeito das Entidades que teríamos em nosso projeto. Originalmente, havíamos pensado em apenas duas: Video e User. A entidade User haveria um atributo do tipo List < Video >, para representar os vídeos favoritos daquele usuário.
 
 Entretanto, tendo em vista que não utilizamos um banco de dados relacional para fazer o relacionamento Many To One e após encontrar dificuldades em recuperar os dados do User sem esta lista de favoritos, o que faria sentido para alguns dos UseCases, decidimos criar uma terceira entidade: Favorito.
 
