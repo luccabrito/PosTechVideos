@@ -72,11 +72,10 @@ public class VideoController {
     }
 
     @GetMapping("/buscarPorDataDeUpload")
-    public Mono<ResponseEntity<List<Video>>> buscarPorDataDeUpload(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataDeUpload) {
+    public Mono<ResponseEntity<Flux<Video>>> buscarPorDataDeUpload(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataDeUpload) {
         Flux<Video> videosFlux = buscarVideoPorDataUploadUseCase.executar(dataDeUpload);
-        return videosFlux
-                .collectList()
-                .map(videos -> !videos.isEmpty() ? ResponseEntity.ok(videos) : ResponseEntity.noContent().build());
+        return videosFlux.hasElements()
+                .map(hasElements -> hasElements ? ResponseEntity.ok().body(videosFlux) : ResponseEntity.notFound().build());
     }
 
     @GetMapping("/buscarPorTitulo")
